@@ -7,4 +7,6 @@ package com.androidworld.app.bean;
  *         当前时间：2016/6/8 16:32
  */
 public class User {
+
+    private String userName;
 }
