@@ -1,4 +1,4 @@
-package com.androidworld.app.api;
+package com.androidworld.app.mvp.data.api;
 
 /** 
  * <h3>网络请求接口地址集合</h3>

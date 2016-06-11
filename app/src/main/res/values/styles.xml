@@ -60,6 +60,10 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="SwipeBackLayout">
+        <item name="edge_size">0dp</item>
+    </style>
+
 
     <style name="RedTheme" parent="AppTheme">
         <item name="colorPrimary">@color/red</item>

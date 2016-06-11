@@ -1,7 +1,7 @@
 package com.androidworld.app.config;
 
 /**
- * 描述：  应用初始设置
+ * <h3>应用初始设置</h3>
  *
  * @author LQC
  *         当前时间： 2016/6/4.

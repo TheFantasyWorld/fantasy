@@ -97,9 +97,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void init(Bundle savedInstanceState);
 
     /**
-     * 获取ContentView的ID
+     * 获取ContentView的id
      *
-     * @return int
+     * @return int ContentView的id
      */
     protected abstract int getContentViewLayoutId();
 

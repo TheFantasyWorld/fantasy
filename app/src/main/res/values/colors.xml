@@ -45,12 +45,11 @@
     <color name="light_grey">#ffbebebe</color>
     <color name="light_grey_1">#FFEEEEEE</color>
     <color name="light_grey_2">#FFDDDDDD</color>
+    <color name="white">#FFFFFFFF</color>
 
     <color name="drawer_scrim_color">#88EEEEEE</color>
     <color name="action_bar_title_color">@android:color/white</color>
     <color name="window_background">@android:color/white</color>
-    <color name="yellow1">#eeee00</color>
-    <color name="blue1">#0000ff</color>
 
     <color name="background_tab_pressed">#6633B5E5</color>
 </resources>

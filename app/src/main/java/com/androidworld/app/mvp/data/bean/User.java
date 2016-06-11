@@ -1,4 +1,4 @@
-package com.androidworld.app.bean;
+package com.androidworld.app.mvp.data.bean;
 
 /**
  * <h3>用户信息</h3>
