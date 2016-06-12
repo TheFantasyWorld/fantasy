@@ -9,13 +9,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.androidworld.app.R;
-import com.androidworld.app.util.ColorUtils;
+import com.androidworld.app.config.AndroidWorldApplication;
 import com.androidworld.app.util.ThemeUtil;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import javax.inject.Inject;
 
 /**
  * <h3>Activty基类</h3>
@@ -25,31 +27,20 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected Toolbar mToolbar;
-
     protected Intent mIntent;
 
-    protected Context mContext;
+    @Inject
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getAndroidWorldApplication().getApplicationComponent().inject(this);
         initTheme();
         initWindow();
-
-        if (getContentViewLayoutId() != 0) {// 设置主布局,若子类设置过布局
-            setContentView(getContentViewLayoutId());
-        }
-
-        if (hasActionBar()) {
-            mToolbar = (Toolbar) findViewById(R.id.toolbar);
-            initToolBar(mToolbar);
-        }
-
+        initInjector();
+        initView();
         mIntent = new Intent();
-        mContext = this;
-        init(savedInstanceState);
     }
 
     /**
@@ -66,9 +57,61 @@ public abstract class BaseActivity extends AppCompatActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintColor(ColorUtils.colorBurn(getColorPrimary()));
+            tintManager.setStatusBarTintColor(getColorPrimary());
             tintManager.setStatusBarTintEnabled(true);
         }
+    }
+
+    /**
+     * 初始化布局
+     */
+    private void initView() {
+        if (getSubContentViewLayoutId() != -1) {  // 若子类设置过布局,则为继承activity_base布局
+            setContentView(R.layout.activity_base);
+            LinearLayout contentLayout = (LinearLayout) findViewById(R.id.ll_content);
+            getLayoutInflater().inflate(getSubContentViewLayoutId(), contentLayout);
+        } else {
+            setContentView(getContentViewLayoutId());
+        }
+
+        if (hasToolbar()) {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            initToolbar(toolbar);
+        }
+    }
+
+    /**
+     * 注入Injector
+     */
+    protected void initInjector() {
+        // >>>>>>需要的时候去重写<<<<<<
+    }
+
+    /**
+     * 当该方法返回值不为-1时，则为继承activity_base布局，将替换content布局
+     *
+     * @return int 子布局的id
+     */
+    protected abstract int getSubContentViewLayoutId();
+
+    /**
+     * 获取ContentViewLayoutId
+     */
+    protected int getContentViewLayoutId() {
+        return 0;  //>>>>>>默认值为0，当子类布局不需要继承activity_base的时候，重写该方法<<<<<<
+    }
+
+    /**
+     * 初始化toolbar
+     */
+    protected void initToolbar(Toolbar toolbar) {
+        if (toolbar == null) // 如果布局文件没有找到toolbar,则不设置toolbar
+            return;
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(hasBackButton());
+        }
+        toolbar.setBackgroundColor(getColorPrimary());
     }
 
     /**
@@ -90,69 +133,25 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 初始化View、设置属性、监听事件等 >>>>>子类必须重写该方法
-     *
-     * @param savedInstanceState
-     */
-    protected abstract void init(Bundle savedInstanceState);
-
-    /**
-     * 获取ContentView的id
-     *
-     * @return int ContentView的id
-     */
-    protected abstract int getContentViewLayoutId();
-
-    /**
-     * 初始化toolbar
-     *
-     * @param toolbar
-     */
-    private void initToolBar(Toolbar toolbar) {
-        if (toolbar == null) // 如果布局文件没有找到toolbar,则不设置actionbar
-            return;
-        if (getActionBarTitle() != null) {
-            toolbar.setTitle(getActionBarTitle());
-        }
-
-        setSupportActionBar(toolbar);
-        if (hasBackButton()) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-        mToolbar.setBackgroundColor(getColorPrimary());
-    }
-
-    /**
      * 是否有左上角返回按钮
-     *
-     * @return
      */
     protected boolean hasBackButton() {
         return true;
     }
 
     /**
-     * 子类可以从写,若不重写默认为程序名字 返回String资源
-     *
-     * @return
+     * 子类布局必须要有toolbar才能返回true 子类可以重写 若不重写默认有toolbar 重写返回false,则无toolbar
      */
-    protected String getActionBarTitle() {
-        return this.getResources().getString(R.string.app_name);
+    protected boolean hasToolbar() {
+        return true;
     }
 
-    /**
-     * 子类布局必须要有toolbar才能返回true 子类可以重写 若不重写默认有toolbar 重写返回false,则无toolbar
-     *
-     * @return
-     */
-    protected boolean hasActionBar() {
-        return true;
+    protected AndroidWorldApplication getAndroidWorldApplication() {
+        return (AndroidWorldApplication) getApplication();
     }
 
     /**
      * 带动画效果的跳转界面
-     *
-     * @param clazz
      */
     protected final void startActivity(Class<? extends Activity> clazz) {
         mIntent.setClass(this, clazz);
@@ -160,32 +159,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         showActivityInAnim();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case android.R.id.home:
-                onBackPressed();// 返回
-                break;
-
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     /**
      * Activity进入的动画效果
      */
-    private void showActivityInAnim() {
+    protected void showActivityInAnim() {
         overridePendingTransition(R.anim.activity_right_left_anim, R.anim.activity_exit_anim);
     }
 
     /**
      * Activity退出的动画效果
      */
-    private void showActivityExitAnim() {
+    protected void showActivityExitAnim() {
         overridePendingTransition(R.anim.activity_exit_anim, R.anim.activity_left_right_anim);
     }
 
@@ -198,4 +182,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         showActivityExitAnim();
     }
 
+    /**
+     * 无动画重启Activity
+     */
+    protected void reload() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
+    }
 }

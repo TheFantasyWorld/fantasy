@@ -11,11 +11,11 @@ import com.androidworld.app.R;
  */
 public class ThemeUtil {
 
-    public static void changTheme(Activity activity, Theme theme){
+    public static void changTheme(Activity activity, Theme theme) {
         if (activity == null)
             return;
         int style = R.style.BlueTheme;
-        switch (theme){
+        switch (theme) {
             case BROWN:
                 style = R.style.BrownTheme;
                 break;
@@ -46,10 +46,10 @@ public class ThemeUtil {
         activity.setTheme(style);
     }
 
-    public static int getDialogStyle(Theme theme){
+    public static int getDialogStyle(Theme theme) {
 
         int style = R.style.BlueTheme;
-        switch (theme){
+        switch (theme) {
             case BROWN:
                 style = R.style.BrownDialogTheme;
                 break;
@@ -80,12 +80,12 @@ public class ThemeUtil {
         return style;
     }
 
-    public static Theme getCurrentTheme(Context context){
-        int value = PreferenceUtils.getPrefInt(context,"theme",2);
+    public static Theme getCurrentTheme(Context context) {
+        int value = PreferenceUtils.getPrefInt(context, "theme", Theme.BLUE.mValue);
         return ThemeUtil.Theme.mapValueToTheme(value);
     }
 
-    public enum Theme{
+    public enum Theme {
         RED(0x00),
         BROWN(0x01),
         BLUE(0x02),
@@ -97,7 +97,7 @@ public class ThemeUtil {
 
         private int mValue;
 
-        Theme(int value){
+        Theme(int value) {
             this.mValue = value;
         }
 
@@ -111,10 +111,10 @@ public class ThemeUtil {
             return RED;
         }
 
-        static Theme getDefault()
-        {
+        static Theme getDefault() {
             return BLUE;
         }
+
         public int getIntValue() {
             return mValue;
         }

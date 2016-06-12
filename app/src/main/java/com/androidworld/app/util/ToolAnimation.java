@@ -16,7 +16,7 @@ import android.view.animation.LinearInterpolator;
 
 /**
  * 动画工具
- * @author 小秋秋
+ * @author LQC
  *
  */
 public class ToolAnimation {

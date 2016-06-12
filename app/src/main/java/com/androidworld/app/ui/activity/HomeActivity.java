@@ -1,60 +1,74 @@
 package com.androidworld.app.ui.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.androidworld.app.R;
-import com.androidworld.app.util.ColorUtils;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.androidworld.app.ui.activity.base.BaseActivity;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * <h3>主界面</h3>
- *
+ * <p>负责设置侧滑菜单以及主页面内容页切换</p>
  * @author LQC
  *         当前时间：2016/6/4 20:28
  */
-public class HomeActivity extends AppCompatActivity
+@SuppressWarnings("deprecation")
+public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    @Bind(R.id.drawer_layout)
+    DrawerLayout mDrawer;
+
+    @Bind(R.id.nav_view)
+    NavigationView navigationView;
+
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintColor(0xFF03A9F4);
-        tintManager.setStatusBarTintEnabled(true);
-        setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
+        initDrawerLayout();
+    }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    /**
+     * 初始化侧滑菜单
+     */
+    private void initDrawerLayout() {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+                this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawer.setDrawerListener(toggle);
         toggle.syncState();
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(this);
+        }
+    }
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+    @Override
+    protected void initToolbar(Toolbar toolbar) {
+        super.initToolbar(toolbar);
+        toolbar.setTitle("Android World");
+    }
+
+    @Override
+    protected int getSubContentViewLayoutId() {
+        return R.layout.activity_home;
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+            mDrawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -112,8 +126,7 @@ public class HomeActivity extends AppCompatActivity
                 break;
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }
