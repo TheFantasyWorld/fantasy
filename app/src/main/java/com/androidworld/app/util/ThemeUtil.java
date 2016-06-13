@@ -111,10 +111,6 @@ public class ThemeUtil {
             return RED;
         }
 
-        static Theme getDefault() {
-            return BLUE;
-        }
-
         public int getIntValue() {
             return mValue;
         }

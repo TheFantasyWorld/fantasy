@@ -532,4 +532,20 @@ public class SwipeBackLayout extends FrameLayout {
             }
         }
     }
+
+    //===================================================================
+
+    public static final int FULL_SCREEN_LEFT = ViewDragHelper.EDGE_LEFT;
+    public static final int FULL_SCREEN_TOP = ViewDragHelper.EDGE_TOP;
+    public static final int FULL_SCREEN_RIGHT = ViewDragHelper.EDGE_RIGHT;
+    public static final int FULL_SCREEN_BOTTOM = ViewDragHelper.EDGE_BOTTOM;
+    public static final int ORIGINAL = 0X31;
+
+    public void setSwipeMode(int mode) {
+        if (mode == SwipeBackLayout.ORIGINAL) {
+            mDragHelper.setTouchedFullScreen(false, 0);
+        } else {
+            mDragHelper.setTouchedFullScreen(true, mode);
+        }
+    }
 }

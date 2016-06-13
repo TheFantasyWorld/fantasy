@@ -178,9 +178,9 @@ public class ViewDragHelper {
          * drag or settle.
          *
          * @param changedView View whose position changed
-         * @param left        New X coordinate of the left edge of the view
+         * @param left        New InformationFragment coordinate of the left edge of the view
          * @param top         New Y coordinate of the top edge of the view
-         * @param dx          Change in X position from the last call
+         * @param dx          Change in InformationFragment position from the last call
          * @param dy          Change in Y position from the last call
          */
         public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
@@ -215,7 +215,7 @@ public class ViewDragHelper {
          * </p>
          *
          * @param releasedChild The captured child view now being released
-         * @param xvel          X velocity of the pointer as it left the screen in pixels
+         * @param xvel          InformationFragment velocity of the pointer as it left the screen in pixels
          *                      per second.
          * @param yvel          Y velocity of the pointer as it left the screen in pixels
          *                      per second.
@@ -333,7 +333,7 @@ public class ViewDragHelper {
          * clamping.
          *
          * @param child Child view being dragged
-         * @param left  Attempted motion along the X axis
+         * @param left  Attempted motion along the InformationFragment axis
          * @param dx    Proposed change in position for left
          * @return The new clamped position for left
          */
@@ -774,9 +774,9 @@ public class ViewDragHelper {
      * The caller should invoke {@link #continueSettling(boolean)} on each
      * subsequent frame to continue the motion until it returns false.
      *
-     * @param minLeft Minimum X position for the view's left edge
+     * @param minLeft Minimum InformationFragment position for the view's left edge
      * @param minTop  Minimum Y position for the view's top edge
-     * @param maxLeft Maximum X position for the view's left edge
+     * @param maxLeft Maximum InformationFragment position for the view's left edge
      * @param maxTop  Maximum Y position for the view's top edge
      */
     public void flingCapturedView(int minLeft, int minTop, int maxLeft, int maxTop) {
@@ -996,9 +996,9 @@ public class ViewDragHelper {
      * @param v      View to test for horizontal scrollability
      * @param checkV Whether the view v passed should itself be checked for
      *               scrollability (true), or just its children (false).
-     * @param dx     Delta scrolled in pixels along the X axis
+     * @param dx     Delta scrolled in pixels along the InformationFragment axis
      * @param dy     Delta scrolled in pixels along the Y axis
-     * @param x      X coordinate of the active touch point
+     * @param x      InformationFragment coordinate of the active touch point
      * @param y      Y coordinate of the active touch point
      * @return true if child views of v can be scrolled by delta of dx.
      */
@@ -1346,7 +1346,7 @@ public class ViewDragHelper {
      * motion along that axis will not count toward the slop check.
      *
      * @param child Child to check
-     * @param dx    Motion since initial position along X axis
+     * @param dx    Motion since initial position along InformationFragment axis
      * @param dy    Motion since initial position along Y axis
      * @return true if the touch slop has been crossed
      */
@@ -1506,7 +1506,7 @@ public class ViewDragHelper {
      * parent view's coordinate system. If there is no captured view this method
      * will return false.
      *
-     * @param x X position to test in the parent's coordinate system
+     * @param x InformationFragment position to test in the parent's coordinate system
      * @param y Y position to test in the parent's coordinate system
      * @return true if the captured view is under the given point, false
      * otherwise
@@ -1520,7 +1520,7 @@ public class ViewDragHelper {
      * view's coordinate system.
      *
      * @param view Child view of the parent to hit test
-     * @param x    X position to test in the parent's coordinate system
+     * @param x    InformationFragment position to test in the parent's coordinate system
      * @param y    Y position to test in the parent's coordinate system
      * @return true if the supplied view is under the given point, false
      * otherwise
@@ -1538,7 +1538,7 @@ public class ViewDragHelper {
      * {@link com.github.obsessive.library.swipeback.ViewDragHelper.Callback#getOrderedChildIndex(int)}
      * .
      *
-     * @param x X position to test in the parent's coordinate system
+     * @param x InformationFragment position to test in the parent's coordinate system
      * @param y Y position to test in the parent's coordinate system
      * @return The topmost child view under (x, y) or null if none found.
      */
@@ -1556,14 +1556,41 @@ public class ViewDragHelper {
         return null;
     }
 
+//    private int getEdgeTouched(int x, int y) {
+//        int result = 0;
+//
+//        if (x < mParentView.getLeft() + mEdgeSize) result = EDGE_LEFT;
+//        if (y < mParentView.getTop() + mEdgeSize) result = EDGE_TOP;
+//        if (x > mParentView.getRight() - mEdgeSize) result = EDGE_RIGHT;
+//        if (y > mParentView.getBottom() - mEdgeSize) result = EDGE_BOTTOM;
+//
+//        return result;
+//    }
+
+
+    //===================================================================
     private int getEdgeTouched(int x, int y) {
         int result = 0;
-
-        if (x < mParentView.getLeft() + mEdgeSize) result = EDGE_LEFT;
-        if (y < mParentView.getTop() + mEdgeSize) result = EDGE_TOP;
-        if (x > mParentView.getRight() - mEdgeSize) result = EDGE_RIGHT;
-        if (y > mParentView.getBottom() - mEdgeSize) result = EDGE_BOTTOM;
-
+        if (touch_flag) {
+            result = flag;
+        } else {
+            if (x < mParentView.getLeft() + mEdgeSize)
+                result = EDGE_LEFT;
+            if (y < mParentView.getTop() + mEdgeSize)
+                result = EDGE_TOP;
+            if (x > mParentView.getRight() - mEdgeSize)
+                result = EDGE_RIGHT;
+            if (y > mParentView.getBottom() - mEdgeSize)
+                result = EDGE_BOTTOM;
+        }
         return result;
+    }
+
+    private boolean touch_flag;
+    private int flag;
+
+    public void setTouchedFullScreen(boolean touch_flag,int flag) {
+        this.touch_flag = touch_flag;
+        this.flag = flag;
     }
 }

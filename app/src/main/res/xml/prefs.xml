@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.jenzz.materialpreference.PreferenceCategory android:title="@string/general_settings">
+        <com.jenzz.materialpreference.Preference
+            android:key="@string/app_theme"
+            android:summary="@string/state_app_theme"
+            android:title="@string/title_app_theme" />
+    </com.jenzz.materialpreference.PreferenceCategory>
+
+    <com.jenzz.materialpreference.PreferenceCategory android:title="@string/app">
+        <com.jenzz.materialpreference.SwitchPreference
+            android:key="@string/auto_update"
+            android:summaryOn="@string/state_auto_update"
+            android:summaryOff="@string/state_not_update"
+            android:title="@string/title_auto_update" />
+        <com.jenzz.materialpreference.Preference
+            android:key="@string/clean_cache"
+            android:summary="@string/cache_size"
+            android:title="@string/title_clean_cache" />
+        <com.jenzz.materialpreference.Preference
+            android:key="@string/check_update"
+            android:summary="@string/state_current_version"
+            android:title="@string/title_check_update" />
+    </com.jenzz.materialpreference.PreferenceCategory>
+
+    <com.jenzz.materialpreference.PreferenceCategory android:title="@string/other">
+        <com.jenzz.materialpreference.Preference
+            android:key="@string/feedback"
+            android:title="@string/title_feedback" />
+        <com.jenzz.materialpreference.Preference
+            android:key="@string/about_key"
+            android:title="@string/title_about" />
+        <com.jenzz.materialpreference.Preference
+            android:key="@string/switch_account"
+            android:title="@string/title_switch_account" />
+    </com.jenzz.materialpreference.PreferenceCategory>
+</PreferenceScreen>

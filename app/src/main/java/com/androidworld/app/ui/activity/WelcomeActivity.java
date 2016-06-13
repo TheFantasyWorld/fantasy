@@ -5,6 +5,11 @@ import android.os.Bundle;
 import com.androidworld.app.R;
 import com.androidworld.app.ui.activity.base.BaseActivity;
 
+/**
+ * <h3>欢迎界面</h3>
+ * @author LQC
+ * 当前时间：2016/6/13 16:26
+ */
 public class WelcomeActivity extends BaseActivity {
 
     @Override
@@ -20,7 +25,7 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected int getSubContentViewLayoutId() {
-        return -1;
+        return NO_SUB_CONTENT_VIEW;
     }
 
     @Override

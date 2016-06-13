@@ -10,5 +10,4 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.androidworld.app.ui.activity.LoginActivity">
 
-    <include layout="@layout/toolbar_layout" />
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.androidworld.app.injector.module;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 
 import java.util.concurrent.TimeUnit;
@@ -51,5 +52,10 @@ public class ApplicationModule {
     @Singleton
     NotificationManager provideNotificationManager(Context mContext) {
         return (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+    }
+
+    @Provides
+    Intent provideIntent() {
+        return new Intent();
     }
 }

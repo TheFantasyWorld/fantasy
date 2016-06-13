@@ -9,13 +9,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.androidworld.app.R;
 import com.androidworld.app.config.AndroidWorldApplication;
 import com.androidworld.app.util.ThemeUtil;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import javax.inject.Inject;
 
@@ -27,10 +27,14 @@ import javax.inject.Inject;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
+    @Inject
     protected Intent mIntent;
 
     @Inject
-    Context mContext;
+    protected Context mContext;
+
+    /**子类不需要继承activity_base布局*/
+    protected static final int NO_SUB_CONTENT_VIEW = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         initWindow();
         initInjector();
         initView();
-        mIntent = new Intent();
     }
 
     /**
@@ -54,11 +57,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     @TargetApi(19)
     protected final void initWindow() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //设置状态栏透明
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //设置导航栏透明
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintColor(getColorPrimary());
-            tintManager.setStatusBarTintEnabled(true);
+//            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+//            tintManager.setStatusBarTintColor(getColorPrimary());
+//            tintManager.setStatusBarTintEnabled(true);
         }
     }
 
@@ -66,7 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 初始化布局
      */
     private void initView() {
-        if (getSubContentViewLayoutId() != -1) {  // 若子类设置过布局,则为继承activity_base布局
+        if (getSubContentViewLayoutId() != NO_SUB_CONTENT_VIEW) {  // 若子类设置过布局,则为继承activity_base布局
             setContentView(R.layout.activity_base);
             LinearLayout contentLayout = (LinearLayout) findViewById(R.id.ll_content);
             getLayoutInflater().inflate(getSubContentViewLayoutId(), contentLayout);
@@ -74,14 +79,14 @@ public abstract class BaseActivity extends AppCompatActivity {
             setContentView(getContentViewLayoutId());
         }
 
-        if (hasToolbar()) {
+        if (hasToolbar()) {  //  当有Toobar时对其进行初始化操作
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             initToolbar(toolbar);
         }
     }
 
     /**
-     * 注入Injector
+     * 初始化依赖注入
      */
     protected void initInjector() {
         // >>>>>>需要的时候去重写<<<<<<
@@ -112,6 +117,16 @@ public abstract class BaseActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(hasBackButton());
         }
         toolbar.setBackgroundColor(getColorPrimary());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();  // 返回
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

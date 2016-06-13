@@ -4,10 +4,41 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="settings">设置</string>
     <string name="title_activity_login">登录</string>
 
-    <string name="title_activity_welcome">WelcomeActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="search_note">搜索</string>
+    <string name="general_settings">常规</string>
+    <string name="other">其他</string>
+    <string name="change_theme">更改主题</string>
+    <string name="right_hand_mode_key">right_hand_mode_key</string>
+    <string name="clean_cache">clean_cache</string>
+    <string name="title_clean_cache">清理缓存</string>
+    <string name="cache_size">当前缓存：0K</string>
+    <string name="auto_update">auto_update</string>
+    <string name="title_auto_update">当有新版本时，后台自动更新</string>
+    <string name="state_auto_update">状态：打开</string>
+    <string name="switch_account">switch_account</string>
+    <string name="title_switch_account">切换账号</string>
+    <string name="title_about">关于</string>
+    <string name="about_key">about_key</string>
+    <string name="app_theme">app_theme</string>
+    <string name="title_app_theme">主题风格</string>
+    <string name="state_app_theme">当前主题：天空蓝</string>
+    <string name="feedback">feedback</string>
+    <string name="title_feedback">意见反馈</string>
+    <string name="app">程序</string>
+    <string name="input_account_phone">手机号码：</string>
+    <string name="password">密码：</string>
+    <string name="login">登　录</string>
+    <string name="remeberpassword">记住密码</string>
+    <string name="title_activity_register">注册</string>
+    <string name="title_activity_search_liangbiao">搜索量表</string>
+    <string name="state_not_update">状态：关闭</string>
+    <string name="check_update">check_update</string>
+    <string name="title_check_update">检查更新</string>
+    <string name="state_current_version">当前版本：v1.0</string>
+    <string name="title_activity_modify">修改密码</string>
+    <string name="welcome">立即体验</string>
 </resources>

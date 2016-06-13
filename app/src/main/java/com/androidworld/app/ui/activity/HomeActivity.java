@@ -2,7 +2,12 @@ package com.androidworld.app.ui.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +16,7 @@ import android.view.MenuItem;
 
 import com.androidworld.app.R;
 import com.androidworld.app.ui.activity.base.BaseActivity;
+import com.androidworld.app.ui.fragment.InformationFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,16 +35,25 @@ public class HomeActivity extends BaseActivity
     DrawerLayout mDrawer;
 
     @Bind(R.id.nav_view)
-    NavigationView navigationView;
+    NavigationView mNavigationView;
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
+
+    @Bind(R.id.vp_content)
+    ViewPager vpContent;
+
+    @Bind(R.id.tabs)
+    TabLayout mTabLayout;
+
+    private final String[] TITLES = {"热门", "移动开发", "程序人生", "技术探讨", "资源下载"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         initDrawerLayout();
+        setTabLinkToViewPager();
     }
 
     /**
@@ -49,9 +64,21 @@ public class HomeActivity extends BaseActivity
                 this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawer.setDrawerListener(toggle);
         toggle.syncState();
-        if (navigationView != null) {
-            navigationView.setNavigationItemSelectedListener(this);
+        if (mNavigationView != null) {
+            mNavigationView.setNavigationItemSelectedListener(this);
         }
+    }
+
+    /**
+     * 设置TabLayout与ViewPager的关联，并设置所需数据
+     */
+    private void setTabLinkToViewPager() {
+        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        for (int i = 0; i < TITLES.length; i++) {
+            mTabLayout.addTab(mTabLayout.newTab().setText(TITLES[i]));
+        }
+        vpContent.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+        mTabLayout.setupWithViewPager(vpContent);
     }
 
     @Override
@@ -85,6 +112,7 @@ public class HomeActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+            startActivity(LoginActivity.class);
             return true;
         }
 
@@ -95,7 +123,7 @@ public class HomeActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_camera:
-
+                startActivity(SettingsActivity.class);
                 break;
 
             case R.id.nav_gallery:
@@ -126,7 +154,31 @@ public class HomeActivity extends BaseActivity
                 break;
         }
 
-        mDrawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private class MyPagerAdapter extends FragmentPagerAdapter {
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return TITLES[position];
+        }
+
+        @Override
+        public int getCount() {
+            return TITLES.length;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("category", position);
+            return Fragment.instantiate(//单例模式，防止重复创建
+                    mContext, InformationFragment.class.getName(), bundle);
+        }
     }
 }
