@@ -49,12 +49,12 @@ public class SettingsFragment extends PreferenceFragment {
 //        checkUpdatePreference.setSummary("当前版本：v" + getVersion(getActivity()));
     }
 
-    private String getVersion(Context ctx){
+    private String getVersion(Context ctx) {
         try {
             PackageManager pm = ctx.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(ctx.getPackageName(), PackageManager.GET_ACTIVITIES);
             return pi.versionName;
-        }catch (PackageManager.NameNotFoundException e){
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return "1.0.0";
@@ -68,7 +68,7 @@ public class SettingsFragment extends PreferenceFragment {
             PackageManager pm = ctx.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(ctx.getPackageName(), PackageManager.GET_ACTIVITIES);
             return pi.versionCode;
-        }catch (PackageManager.NameNotFoundException e){
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return 1;

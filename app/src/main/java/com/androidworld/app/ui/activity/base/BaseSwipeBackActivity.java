@@ -9,7 +9,7 @@ import com.androidworld.app.ui.widgets.swipeback.SwipeBackLayout;
 import com.androidworld.app.ui.widgets.swipeback.Utils;
 
 /**
- * <h3>侧滑Finish掉当前Activity</h3>
+ * <h3>侧滑关闭当前Activity</h3>
  * @author LQC
  * 当前时间：2016/6/9 15:19
  */

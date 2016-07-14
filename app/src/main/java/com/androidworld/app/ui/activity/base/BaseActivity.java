@@ -93,7 +93,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 当该方法返回值不为-1时，则为继承activity_base布局，将替换content布局
+     * 当该方法返回值不为0时，则为继承activity_base布局，将替换content布局
      *
      * @return int 子布局的id
      */
