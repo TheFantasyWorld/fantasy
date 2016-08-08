@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/edit_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/dividershape"
+        android:dividerPadding="1dp"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:showDividers="middle">
+
+        <LinearLayout
+            android:id="@+id/edit_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_userinfo_item_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/hint_avatar"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/ic_account_circle_white_48dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_userinfo_item_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/hint_username"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_userinfo_item_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/hint_email"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_userinfo_item_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/hint_nickname"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/et_nickname"
+                android:layout_width="@dimen/edit_userinfo_item_width"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:gravity="end"
+                android:hint="@string/hint_nickname"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_userinfo_item_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/hint_sign"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/et_sign"
+                android:layout_width="@dimen/edit_userinfo_item_width"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:gravity="end"
+                android:hint="@string/hint_sign"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo"
+                tools:text="" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/edit_sex"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_userinfo_item_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/hint_sex"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo"
+                tools:text="男" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_userinfo_item_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/hint_work"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/et_work"
+                android:layout_width="@dimen/edit_userinfo_item_width"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:gravity="end"
+                android:hint="@string/hint_work"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/edit_location"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_userinfo_item_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/hint_location"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/edit_birth"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_userinfo_item_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/hint_birth"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_birth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/edit_userinfo" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_commit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@mipmap/ic_send_white_48dp"
+        app:backgroundTint="@color/yellow" />
+
+</RelativeLayout>
