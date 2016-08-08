@@ -34,4 +34,5 @@
             android:key="@string/switch_account"
             android:title="@string/title_switch_account" />
     </com.jenzz.materialpreference.PreferenceCategory>
+
 </PreferenceScreen>

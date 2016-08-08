@@ -15,9 +15,18 @@ import android.widget.LinearLayout;
 
 import com.androidworld.app.R;
 import com.androidworld.app.config.AndroidWorldApplication;
+import com.androidworld.app.rxbus.Event;
+import com.androidworld.app.rxbus.RxEvent;
+import com.androidworld.app.rxbus.RxEventBus;
 import com.androidworld.app.util.ThemeUtil;
 
 import javax.inject.Inject;
+
+import butterknife.ButterKnife;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * <h3>Activty基类</h3>
@@ -25,7 +34,7 @@ import javax.inject.Inject;
  * @author LQC
  *         当前时间：2016/6/4 20:18
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements Event {
 
     @Inject
     protected Intent mIntent;
@@ -33,8 +42,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Inject
     protected Context mContext;
 
-    /**子类不需要继承activity_base布局*/
-    protected static final int NO_SUB_CONTENT_VIEW = 0;
+    /**
+     * 子类不需要继承activity_base布局
+     */
+    protected static final int NO_BASE_CONTENT_VIEW = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initWindow();
         initInjector();
         initView();
+        registerEvent();
     }
 
     /**
@@ -71,18 +83,16 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 初始化布局
      */
     private void initView() {
-        if (getSubContentViewLayoutId() != NO_SUB_CONTENT_VIEW) {  // 若子类设置过布局,则为继承activity_base布局
+        if (getSubContentViewLayoutId() != NO_BASE_CONTENT_VIEW) {  // 若子类设置过布局,则为继承activity_base布局
             setContentView(R.layout.activity_base);
             LinearLayout contentLayout = (LinearLayout) findViewById(R.id.ll_content);
             getLayoutInflater().inflate(getSubContentViewLayoutId(), contentLayout);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            initToolbar(toolbar);
         } else {
             setContentView(getContentViewLayoutId());
         }
-
-        if (hasToolbar()) {  //  当有Toobar时对其进行初始化操作
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            initToolbar(toolbar);
-        }
+        ButterKnife.bind(this);
     }
 
     /**
@@ -103,19 +113,15 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 获取ContentViewLayoutId
      */
     protected int getContentViewLayoutId() {
-        return 0;  //>>>>>>默认值为0，当子类布局不需要继承activity_base的时候，重写该方法<<<<<<
+        return -1;  //>>>>>>默认值为-1，当子类布局不需要继承activity_base的时候，重写该方法<<<<<<
     }
 
     /**
      * 初始化toolbar
      */
     protected void initToolbar(Toolbar toolbar) {
-        if (toolbar == null) // 如果布局文件没有找到toolbar,则不设置toolbar
-            return;
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(hasBackButton());
-        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(hasBackButton());
         toolbar.setBackgroundColor(getColorPrimary());
     }
 
@@ -151,13 +157,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 是否有左上角返回按钮
      */
     protected boolean hasBackButton() {
-        return true;
-    }
-
-    /**
-     * 子类布局必须要有toolbar才能返回true 子类可以重写 若不重写默认有toolbar 重写返回false,则无toolbar
-     */
-    protected boolean hasToolbar() {
         return true;
     }
 
@@ -200,12 +199,65 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 无动画重启Activity
      */
-    protected void reload() {
+    public void reload() {
         Intent intent = getIntent();
         overridePendingTransition(0, 0);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
+        super.finish();
         overridePendingTransition(0, 0);
         startActivity(intent);
+    }
+
+    //用于接收事件
+    protected Subscription mSubscribe;
+
+    @Override
+    public void registerEvent() {
+        //订阅
+        mSubscribe = RxEventBus.getInstance().toObserverable()
+                .filter(new Func1<Object, Boolean>() {
+                    @Override
+                    public Boolean call(Object o) {
+                        return o instanceof RxEvent;
+                    }
+                }) //Only accept RxEvent
+                .map(new Func1<Object, RxEvent>() {
+                    @Override
+                    public RxEvent call(Object o) {
+                        return (RxEvent)o;
+                    }
+                })
+                .filter(new Func1<RxEvent, Boolean>() {
+                    @Override
+                    public Boolean call(RxEvent rxEvent) {
+                        return rxEvent.isType(RxEvent.RESTART_WITH_NO_ANIMATION);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<RxEvent>() {
+                    @Override
+                    public void call(RxEvent rxEvent) {
+                        onCallEvent(rxEvent);
+                    }
+                });
+    }
+
+    @Override
+    public void unregisterEvent() {
+        if (mSubscribe != null) {
+            mSubscribe.unsubscribe();
+        }
+    }
+
+    @Override
+    public void onCallEvent(RxEvent e) {
+        reload();
+    }
+
+    @Override
+    protected void onDestroy() {
+        ButterKnife.unbind(this);
+        unregisterEvent();
+        super.onDestroy();
     }
 }

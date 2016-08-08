@@ -1,12 +1,17 @@
 package com.androidworld.app.ui.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +19,9 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import com.androidworld.app.R;
+import com.androidworld.app.rxbus.RxEvent;
+import com.androidworld.app.rxbus.RxEventBus;
+import com.androidworld.app.ui.activity.HomeActivity;
 import com.androidworld.app.ui.adapter.ColorsListAdapter;
 import com.androidworld.app.util.DataCleanManager;
 import com.androidworld.app.util.DialogUtils;
@@ -25,17 +33,23 @@ import com.jenzz.materialpreference.SwitchPreference;
 import java.util.Arrays;
 import java.util.List;
 
-public class SettingsFragment extends PreferenceFragment {
+/**
+ * <h3>设置偏好选项</h3>
+ *
+ * @author LQC
+ *         当前时间：2016/7/19 21:24
+ */
+public class SettingsFragment extends PreferenceFragment implements Dialog.OnClickListener {
 
     public static final String PREFERENCE_FILE_NAME = "AndroidWorld.settings";
-    private SwitchPreference autoUpdatePreference;
-    private Preference appThemePreference;
-    private Preference cleanCachePreference;
-    private Preference checkUpdatePreference;
+    private SwitchPreference mAutoUpdatePreference;
+    private Preference mAppThemePreference;
+    private Preference mCleanCachePreference;
+    private Preference mCheckUpdatePreference;
+    private boolean isAutoUpdate;
 
     public static SettingsFragment newInstance() {
-        SettingsFragment fragment = new SettingsFragment();
-        return fragment;
+        return new SettingsFragment();
     }
 
     @Override
@@ -44,9 +58,55 @@ public class SettingsFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.prefs);
         getPreferenceManager().setSharedPreferencesName(PREFERENCE_FILE_NAME);
         findPreference();
-//        themeState();
-//        initCacheSize();
-//        checkUpdatePreference.setSummary("当前版本：v" + getVersion(getActivity()));
+        changeTheme();
+        initCacheSize();
+        mCheckUpdatePreference.setSummary("当前版本：v" + getVersion(getActivity()));
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, android.preference.Preference preference) {
+
+        if (isResumed() && preference == null) {
+            return false;
+        }
+
+        String key = preference.getKey();
+        if (TextUtils.equals(key, "right_hand_mode_key")) {
+
+        }
+
+        if (TextUtils.equals(key, "about_key")) {
+            getActivity().startActivity(new Intent(getActivity(), HomeActivity.class));
+        }
+
+        if (TextUtils.equals(key, "app_theme")) {
+            showThemeChooseDialog();
+        }
+
+        if (TextUtils.equals(key, "switch_account")) {
+            AlertDialog.Builder builder = DialogUtils.makeDialogBuilderByTheme(getActivity());
+            builder.setTitle("确认切换").setMessage("切换账号将会退出当前账号，跳转登录界面！").setPositiveButton("确定", this).setNegativeButton("取消", this);
+            builder.show();
+        }
+
+        if (TextUtils.equals(key, "clean_cache")) {
+            cacheClean();
+        }
+
+        if (TextUtils.equals(key, "auto_update")) {
+            isAutoUpdate = !isAutoUpdate;
+            PreferenceUtils.setPrefBoolean(getActivity(), "auto_update", isAutoUpdate);
+        }
+
+        if (TextUtils.equals(key, "feedback")) {
+
+        }
+
+        if (TextUtils.equals(key, "check_update")) {
+
+        }
+
+        return false;
     }
 
     private String getVersion(Context ctx) {
@@ -74,29 +134,11 @@ public class SettingsFragment extends PreferenceFragment {
         return 1;
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    public SettingsFragment() {
-        super();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
     public void findPreference() {
-        autoUpdatePreference = (SwitchPreference) findPreference(getString(R.string.auto_update));
-        appThemePreference = (Preference) findPreference(getString(R.string.app_theme));
-        cleanCachePreference = (Preference) findPreference(getString(R.string.clean_cache));
-        checkUpdatePreference = (Preference) findPreference(getString(R.string.check_update));
-    }
-
-    public void setAutoUpdatePreferenceChecked(boolean checked) {
-        autoUpdatePreference.setChecked(checked);
+        mAutoUpdatePreference = (SwitchPreference) findPreference(getString(R.string.auto_update));
+        mAppThemePreference = (Preference) findPreference(getString(R.string.app_theme));
+        mCleanCachePreference = (Preference) findPreference(getString(R.string.clean_cache));
+        mCheckUpdatePreference = (Preference) findPreference(getString(R.string.check_update));
     }
 
     public void initPreferenceListView(View view) {
@@ -132,53 +174,75 @@ public class SettingsFragment extends PreferenceFragment {
                 if (value != position) {
                     PreferenceUtils.setPrefInt(getActivity(), "theme", position);
                 }
-                themeState();
+                changeTheme();
+                RxEventBus.getInstance().send(new RxEvent(RxEvent.RESTART_WITH_NO_ANIMATION));
+//                ((SettingsActivity) getActivity()).reload();
             }
         });
     }
 
+    /**
+     * 清除缓存
+     */
     public void cacheClean() {
         DataCleanManager.clearAllCache(getActivity().getApplicationContext());
         initCacheSize();
     }
 
+    /**
+     * 计算缓存大小
+     */
     private void initCacheSize() {
         try {
-            cleanCachePreference.setSummary("当前缓存:" + DataCleanManager.getTotalCacheSize(getActivity()));
+            mCleanCachePreference.setSummary("当前缓存:" + DataCleanManager.getTotalCacheSize(getActivity()));
         } catch (Exception e) {
-            cleanCachePreference.setSummary("当前缓存:未知");
+            mCleanCachePreference.setSummary("当前缓存:未知");
         }
     }
 
-    public void themeState() {
-        switch (PreferenceUtils.getPrefInt(getActivity(), "theme", 2)) {
+    /**
+     * 切换主题
+     */
+    public void changeTheme() {
+        switch (PreferenceUtils.getPrefInt(getActivity(), "theme", ThemeUtil.Theme.BLUE.getIntValue())) {
             case 0:
-                appThemePreference.setSummary("当前主题：魅惑红");
+                mAppThemePreference.setSummary("当前主题：魅惑红");
                 break;
             case 1:
-                appThemePreference.setSummary("当前主题：咖啡色");
+                mAppThemePreference.setSummary("当前主题：咖啡色");
                 break;
             case 2:
-                appThemePreference.setSummary("当前主题：天空蓝");
+                mAppThemePreference.setSummary("当前主题：天空蓝");
                 break;
             case 3:
-                appThemePreference.setSummary("当前主题：典雅色");
+                mAppThemePreference.setSummary("当前主题：典雅色");
                 break;
             case 4:
-                appThemePreference.setSummary("当前主题：活力橙");
+                mAppThemePreference.setSummary("当前主题：活力橙");
                 break;
             case 5:
-                appThemePreference.setSummary("当前主题：优雅紫");
+                mAppThemePreference.setSummary("当前主题：优雅紫");
                 break;
             case 6:
-                appThemePreference.setSummary("当前主题：可爱粉");
+                mAppThemePreference.setSummary("当前主题：可爱粉");
                 break;
             case 7:
-                appThemePreference.setSummary("当前主题：苹果绿");
+                mAppThemePreference.setSummary("当前主题：苹果绿");
                 break;
             default:
                 break;
         }
+
     }
 
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+
+        switch (which) {
+            case DialogInterface.BUTTON_POSITIVE:
+                getActivity().startActivity(new Intent(getActivity(), HomeActivity.class));
+                getActivity().finish();
+                break;
+        }
+    }
 }

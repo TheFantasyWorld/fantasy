@@ -45,6 +45,7 @@
     <color name="light_grey">#ffbebebe</color>
     <color name="light_grey_1">#FFEEEEEE</color>
     <color name="light_grey_2">#FFDDDDDD</color>
+    <color name="light_grey_3">#FFF5F5F5</color>
     <color name="white">#FFFFFFFF</color>
 
     <color name="drawer_scrim_color">#88EEEEEE</color>
@@ -54,4 +55,6 @@
     <color name="background_tab_pressed">#6633B5E5</color>
 
     <color name="black_overlay">#66000000</color>
+    <color name="retry_button_background">#30000000</color>
+    <color name="retry_button_background_stroke">#50000000</color>
 </resources>

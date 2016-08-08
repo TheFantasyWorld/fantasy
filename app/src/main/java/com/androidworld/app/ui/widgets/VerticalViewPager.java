@@ -670,7 +670,7 @@ public class VerticalViewPager extends ViewGroup {
     /**
      * Like {@link View#scrollBy}, but scroll smoothly instead of immediately.
      *
-     * @param x the number of pixels to scroll by on the InformationFragment axis
+     * @param x the number of pixels to scroll by on the X axis
      * @param y the number of pixels to scroll by on the Y axis
      */
     void smoothScrollTo(int x, int y) {
@@ -680,7 +680,7 @@ public class VerticalViewPager extends ViewGroup {
     /**
      * Like {@link View#scrollBy}, but scroll smoothly instead of immediately.
      *
-     * @param x        the number of pixels to scroll by on the InformationFragment axis
+     * @param x        the number of pixels to scroll by on the X axis
      * @param y        the number of pixels to scroll by on the Y axis
      * @param velocity the velocity associated with a fling, if applicable. (0 otherwise)
      */
@@ -2347,7 +2347,7 @@ public class VerticalViewPager extends ViewGroup {
      * @param checkV Whether the view v passed should itself be checked for scrollability (true),
      *               or just its children (false).
      * @param dy     Delta scrolled in pixels
-     * @param x      InformationFragment coordinate of the active touch point
+     * @param x      X coordinate of the active touch point
      * @param y      Y coordinate of the active touch point
      * @return true if child views of v can be scrolled by delta of dx.
      */

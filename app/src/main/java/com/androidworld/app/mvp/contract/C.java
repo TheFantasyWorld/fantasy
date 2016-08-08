@@ -8,13 +8,13 @@ import com.androidworld.app.mvp.contract.base.BaseContract;
  * @author LQC
  *         当前时间：2016/6/11 10:07
  */
-public class C {
+public class C extends BaseContract {
 
-    public interface A extends BaseContract.BaseView {
+    public interface View extends V {
 
     }
 
-    public interface B extends BaseContract.BasePresenter<A> {
+    public interface Presenter extends P<View> {
 
     }
 }

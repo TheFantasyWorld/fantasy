@@ -16,14 +16,15 @@ import android.view.MenuItem;
 
 import com.androidworld.app.R;
 import com.androidworld.app.ui.activity.base.BaseActivity;
+import com.androidworld.app.ui.activity.settings.SettingsActivity;
 import com.androidworld.app.ui.fragment.InformationFragment;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * <h3>主界面</h3>
  * <p>负责设置侧滑菜单以及主页面内容页切换</p>
+ *
  * @author LQC
  *         当前时间：2016/6/4 20:28
  */
@@ -51,7 +52,6 @@ public class HomeActivity extends BaseActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
         initDrawerLayout();
         setTabLinkToViewPager();
     }
@@ -67,6 +67,8 @@ public class HomeActivity extends BaseActivity
         if (mNavigationView != null) {
             mNavigationView.setNavigationItemSelectedListener(this);
         }
+        //  默认停留在主页
+        mNavigationView.setCheckedItem(R.id.home);
     }
 
     /**
@@ -83,8 +85,8 @@ public class HomeActivity extends BaseActivity
 
     @Override
     protected void initToolbar(Toolbar toolbar) {
-        super.initToolbar(toolbar);
         toolbar.setTitle("Android World");
+        super.initToolbar(toolbar);
     }
 
     @Override
@@ -111,8 +113,13 @@ public class HomeActivity extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            startActivity(LoginActivity.class);
+        if (id == R.id.action_search) {
+
+            return true;
+        }
+
+        if (id == R.id.exit) {
+            finish();
             return true;
         }
 
@@ -122,27 +129,23 @@ public class HomeActivity extends BaseActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_camera:
+            case R.id.home:
+                mDrawer.closeDrawer(GravityCompat.START);
+                break;
+
+            case R.id.widget:
+
+                break;
+
+            case R.id.message:
+
+                break;
+
+            case R.id.settings:
                 startActivity(SettingsActivity.class);
                 break;
 
-            case R.id.nav_gallery:
-
-                break;
-
-            case R.id.nav_manage:
-
-                break;
-
-            case R.id.nav_send:
-
-                break;
-
             case R.id.nav_share:
-
-                break;
-
-            case R.id.nav_slideshow:
 
                 break;
 

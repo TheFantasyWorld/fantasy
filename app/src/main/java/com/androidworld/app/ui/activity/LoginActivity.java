@@ -22,8 +22,8 @@ public class LoginActivity extends BaseSwipeBackActivity {
 
     @Override
     protected void initToolbar(Toolbar toolbar) {
-        super.initToolbar(toolbar);
         toolbar.setTitle("登录");
+        super.initToolbar(toolbar);
     }
 
     @Override
