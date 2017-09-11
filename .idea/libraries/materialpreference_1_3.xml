@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="materialpreference-1.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/528f90248ab7e5443397ee787a704611449b10a0/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/528f90248ab7e5443397ee787a704611449b10a0/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jenzz/materialpreference/1.3/58686cf4f8a5f253828a462cb3d10a01e5dc2291/materialpreference-1.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
