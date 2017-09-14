@@ -1,4 +1,4 @@
-package com.androidworld.app.ui.activity.settings;
+package com.androidworld.app.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;

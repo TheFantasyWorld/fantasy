@@ -1,6 +1,7 @@
 package com.androidworld.app.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -16,7 +17,6 @@ import android.view.MenuItem;
 
 import com.androidworld.app.R;
 import com.androidworld.app.ui.activity.base.BaseActivity;
-import com.androidworld.app.ui.activity.settings.SettingsActivity;
 import com.androidworld.app.ui.fragment.InformationFragment;
 
 import butterknife.Bind;
@@ -28,7 +28,7 @@ import butterknife.Bind;
  * @author LQC
  *         当前时间：2016/6/4 20:28
  */
-@SuppressWarnings("deprecation")
+@SuppressWarnings("all")
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -47,7 +47,7 @@ public class HomeActivity extends BaseActivity
     @Bind(R.id.tabs)
     TabLayout mTabLayout;
 
-    private final String[] TITLES = {"热门", "移动开发", "程序人生", "技术探讨", "资源下载"};
+    private final String[] TITLES = {"Activity", "Fragment", "Service", "Broadcast", ""};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,9 +66,9 @@ public class HomeActivity extends BaseActivity
         toggle.syncState();
         if (mNavigationView != null) {
             mNavigationView.setNavigationItemSelectedListener(this);
+            //  默认停留在主页
+            mNavigationView.setCheckedItem(R.id.home);
         }
-        //  默认停留在主页
-        mNavigationView.setCheckedItem(R.id.home);
     }
 
     /**
@@ -112,29 +112,22 @@ public class HomeActivity extends BaseActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.action_search) {
-
-            return true;
-        }
-
         if (id == R.id.exit) {
             finish();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
                 mDrawer.closeDrawer(GravityCompat.START);
                 break;
 
             case R.id.widget:
-
+                startActivity(WidgetsActivity.class);
                 break;
 
             case R.id.message:
@@ -162,7 +155,7 @@ public class HomeActivity extends BaseActivity
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
 
-        public MyPagerAdapter(FragmentManager fm) {
+        MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 

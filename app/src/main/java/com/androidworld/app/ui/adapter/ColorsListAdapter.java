@@ -28,7 +28,7 @@ public class ColorsListAdapter extends BaseContentAdapter<Integer> {
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
         if (convertView == null){
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.colors_image_layout, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.colors_image_layout, parent, false);
             holder = new Holder();
             holder.imageView1 = (ImageView)convertView.findViewById(R.id.img_1);
             holder.imageView2 = (ImageView)convertView.findViewById(R.id.img_2);
@@ -52,7 +52,7 @@ public class ColorsListAdapter extends BaseContentAdapter<Integer> {
         this.checkItem = checkItem;
     }
 
-    static class Holder {
+    private static class Holder {
         ImageView imageView1;
         ImageView imageView2;
     }

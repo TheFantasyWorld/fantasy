@@ -1,10 +1,8 @@
 package com.androidworld.app.ui.activity.base;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -29,7 +27,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
- * <h3>Activty基类</h3>
+ * <h3>Activity基类</h3>
  *
  * @author LQC
  *         当前时间：2016/6/4 20:18
@@ -66,17 +64,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Event {
         ThemeUtil.changTheme(this, theme);
     }
 
-    @TargetApi(19)
     protected final void initWindow() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //设置状态栏透明
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //设置导航栏透明
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-//            tintManager.setStatusBarTintColor(getColorPrimary());
-//            tintManager.setStatusBarTintEnabled(true);
-        }
+        //设置状态栏透明
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //设置导航栏透明
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
     }
 
     /**
@@ -121,7 +113,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Event {
      */
     protected void initToolbar(Toolbar toolbar) {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(hasBackButton());
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(hasBackButton());
+        }
         toolbar.setBackgroundColor(getColorPrimary());
     }
 
@@ -224,7 +218,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Event {
                 .map(new Func1<Object, RxEvent>() {
                     @Override
                     public RxEvent call(Object o) {
-                        return (RxEvent)o;
+                        return (RxEvent) o;
                     }
                 })
                 .filter(new Func1<RxEvent, Boolean>() {
