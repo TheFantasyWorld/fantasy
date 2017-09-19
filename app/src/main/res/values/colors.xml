@@ -53,6 +53,16 @@
     <color name="window_background">@android:color/white</color>
 
     <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="green_pure">#a2e542</color>
+    <color name="blue_color">#377caf</color>
+    <color name="pure_yellow_color">#bf9e5a</color>
+    <color name="red_deep">#ea2226</color>
+    <color name="btn_answer_pressed">#4ebcd3</color>
+    <color name="holo_blue_light">#ff33b5e5</color>
+    <color name="purple_p">#F49092</color>
+    <color name="praised_num">#ff5b0f</color>
+    <color name="btn_blue_pressed">#0066FF</color>
+    <color name="orange">#FFA500</color>
 
     <color name="black_overlay">#66000000</color>
     <color name="retry_button_background">#30000000</color>

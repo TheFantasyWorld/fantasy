@@ -2,6 +2,7 @@ package com.androidworld.app.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.androidworld.app.R;
 import com.androidworld.app.ui.activity.base.BaseSwipeBackActivity;
@@ -22,9 +23,9 @@ public class SettingsActivity extends BaseSwipeBackActivity {
     }
 
     @Override
-    protected void initToolbar(Toolbar toolbar) {
+    protected void initToolbar(Toolbar toolbar, View toolbarShadow) {
         toolbar.setTitle(R.string.settings);
-        super.initToolbar(toolbar);
+        super.initToolbar(toolbar, toolbarShadow);
     }
 
     @Override

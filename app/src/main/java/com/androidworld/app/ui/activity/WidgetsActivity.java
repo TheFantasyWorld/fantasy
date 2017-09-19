@@ -4,12 +4,18 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.androidworld.app.R;
 import com.androidworld.app.bean.WidgetItem;
 import com.androidworld.app.bean.WidgetType;
 import com.androidworld.app.ui.activity.base.BaseSwipeBackActivity;
+import com.androidworld.app.ui.activity.path.RectanglePathActivity;
 import com.androidworld.app.ui.activity.piechart.PieChartActivity;
+import com.androidworld.app.ui.activity.popupwindow.BottomPopupWindowActivity;
+import com.androidworld.app.ui.activity.popupwindow.LeftPopupWindowActivity;
+import com.androidworld.app.ui.activity.popupwindow.RightPopupWindowActivity;
+import com.androidworld.app.ui.activity.popupwindow.TopPopupWindowActivity;
 import com.androidworld.app.ui.adapter.ExpandableItemAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
@@ -39,30 +45,72 @@ public class WidgetsActivity extends BaseSwipeBackActivity {
         rvWidgets.setLayoutManager(new LinearLayoutManager(this));
         mExpandableItemAdapter = new ExpandableItemAdapter(mDataList);
         rvWidgets.setAdapter(mExpandableItemAdapter);
-        mExpandableItemAdapter.expandAll();
     }
 
     private void createData() {
-        WidgetType customViews = new WidgetType("CustomViews");
+        WidgetType dispatchTouchEvent = new WidgetType("事件分发机制");
+        dispatchTouchEvent.addSubItem(new WidgetItem("o", PieChartActivity.class));
+        dispatchTouchEvent.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        mDataList.add(dispatchTouchEvent);
+
+        WidgetType customViews = new WidgetType("自定义Views");
         customViews.addSubItem(new WidgetItem("饼图", PieChartActivity.class));
         customViews.addSubItem(new WidgetItem("c", SettingsActivity.class));
         mDataList.add(customViews);
 
-        WidgetType dialogs = new WidgetType("CustomDialogs");
+        WidgetType animates = new WidgetType("View动画");
+        animates.addSubItem(new WidgetItem("值动画", PieChartActivity.class));
+        animates.addSubItem(new WidgetItem("补间动画", SettingsActivity.class));
+        mDataList.add(animates);
+
+        WidgetType dialogs = new WidgetType("Dialogs");
         dialogs.addSubItem(new WidgetItem("a", SettingsActivity.class));
         dialogs.addSubItem(new WidgetItem("c", SettingsActivity.class));
         mDataList.add(dialogs);
 
-        WidgetType popupWindows = new WidgetType("CustomPopupWindows");
-        popupWindows.addSubItem(new WidgetItem("a", SettingsActivity.class));
-        popupWindows.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        WidgetType popupWindows = new WidgetType("PopupWindows");
+        popupWindows.addSubItem(new WidgetItem("顶部弹窗", TopPopupWindowActivity.class));
+        popupWindows.addSubItem(new WidgetItem("底部弹窗", BottomPopupWindowActivity.class));
+        popupWindows.addSubItem(new WidgetItem("左弹窗", LeftPopupWindowActivity.class));
+        popupWindows.addSubItem(new WidgetItem("右弹窗", RightPopupWindowActivity.class));
         mDataList.add(popupWindows);
+
+        WidgetType paths = new WidgetType("Path绘制");
+        paths.addSubItem(new WidgetItem("PathMeasure", RectanglePathActivity.class));
+        paths.addSubItem(new WidgetItem("二阶贝塞尔曲线", SettingsActivity.class));
+        paths.addSubItem(new WidgetItem("三阶贝塞尔曲线", SettingsActivity.class));
+        mDataList.add(paths);
+
+        WidgetType textViews = new WidgetType("TextView");
+        textViews.addSubItem(new WidgetItem("a", RectanglePathActivity.class));
+        textViews.addSubItem(new WidgetItem("b", SettingsActivity.class));
+        textViews.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        mDataList.add(textViews);
+
+        WidgetType buttons = new WidgetType("Button");
+        buttons.addSubItem(new WidgetItem("a", RectanglePathActivity.class));
+        buttons.addSubItem(new WidgetItem("b", SettingsActivity.class));
+        buttons.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        mDataList.add(buttons);
+
+        WidgetType listViews = new WidgetType("ListView");
+        listViews.addSubItem(new WidgetItem("a", RectanglePathActivity.class));
+        listViews.addSubItem(new WidgetItem("b", SettingsActivity.class));
+        listViews.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        mDataList.add(listViews);
+
+        WidgetType recyclerViews = new WidgetType("RecyclerView");
+        recyclerViews.addSubItem(new WidgetItem("瀑布流＋照片墙", RectanglePathActivity.class));
+        recyclerViews.addSubItem(new WidgetItem("b", SettingsActivity.class));
+        recyclerViews.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        mDataList.add(recyclerViews);
     }
 
     @Override
-    protected void initToolbar(Toolbar toolbar) {
+    protected void initToolbar(Toolbar toolbar, View toolbarShadow) {
         toolbar.setTitle("控件");
-        super.initToolbar(toolbar);
+        toolbarShadow.setVisibility(View.GONE);
+        super.initToolbar(toolbar, toolbarShadow);
     }
 
     @Override

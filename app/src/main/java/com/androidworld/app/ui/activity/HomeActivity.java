@@ -3,21 +3,16 @@ package com.androidworld.app.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.androidworld.app.R;
 import com.androidworld.app.ui.activity.base.BaseActivity;
-import com.androidworld.app.ui.fragment.InformationFragment;
 
 import butterknife.Bind;
 
@@ -41,19 +36,10 @@ public class HomeActivity extends BaseActivity
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
 
-    @Bind(R.id.vp_content)
-    ViewPager vpContent;
-
-    @Bind(R.id.tabs)
-    TabLayout mTabLayout;
-
-    private final String[] TITLES = {"Activity", "Fragment", "Service", "Broadcast", ""};
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDrawerLayout();
-        setTabLinkToViewPager();
     }
 
     /**
@@ -71,22 +57,11 @@ public class HomeActivity extends BaseActivity
         }
     }
 
-    /**
-     * 设置TabLayout与ViewPager的关联，并设置所需数据
-     */
-    private void setTabLinkToViewPager() {
-        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        for (int i = 0; i < TITLES.length; i++) {
-            mTabLayout.addTab(mTabLayout.newTab().setText(TITLES[i]));
-        }
-        vpContent.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-        mTabLayout.setupWithViewPager(vpContent);
-    }
-
     @Override
-    protected void initToolbar(Toolbar toolbar) {
-        toolbar.setTitle("Android World");
-        super.initToolbar(toolbar);
+    protected void initToolbar(Toolbar toolbar, View toolbarShadow) {
+        toolbar.setTitle("Android");
+        toolbarShadow.setVisibility(View.GONE);
+        super.initToolbar(toolbar, toolbarShadow);
     }
 
     @Override
@@ -151,30 +126,5 @@ public class HomeActivity extends BaseActivity
         }
 
         return true;
-    }
-
-    private class MyPagerAdapter extends FragmentPagerAdapter {
-
-        MyPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return TITLES[position];
-        }
-
-        @Override
-        public int getCount() {
-            return TITLES.length;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            Bundle bundle = new Bundle();
-            bundle.putInt("category", position);
-            return Fragment.instantiate(//单例模式，防止重复创建
-                    mContext, InformationFragment.class.getName(), bundle);
-        }
     }
 }

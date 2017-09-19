@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
@@ -80,7 +81,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Event {
             LinearLayout contentLayout = (LinearLayout) findViewById(R.id.ll_content);
             getLayoutInflater().inflate(getSubContentViewLayoutId(), contentLayout);
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            initToolbar(toolbar);
+            View toolbarShadow = findViewById(R.id.toolbar_shadow);
+            initToolbar(toolbar, toolbarShadow);
         } else {
             setContentView(getContentViewLayoutId());
         }
@@ -111,7 +113,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Event {
     /**
      * 初始化toolbar
      */
-    protected void initToolbar(Toolbar toolbar) {
+    protected void initToolbar(Toolbar toolbar, View toolbarShadow) {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(hasBackButton());

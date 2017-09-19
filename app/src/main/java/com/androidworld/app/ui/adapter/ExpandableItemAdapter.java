@@ -1,8 +1,10 @@
 package com.androidworld.app.ui.adapter;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.androidworld.app.R;
 import com.androidworld.app.bean.WidgetItem;
@@ -31,7 +33,6 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
             case TYPE_LEVEL_0:
                 final WidgetType widgetType = (WidgetType) item;
                 holder.setText(R.id.tv_title, widgetType.title);
-//                        .setImageResource(R.id.iv, widgetType.isExpanded() ? R.mipmap.arrow_b : R.mipmap.arrow_r);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -39,8 +40,28 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
                         Log.d(TAG, "Level 0 item pos: " + pos);
                         if (widgetType.isExpanded()) {
                             collapse(pos);
+                            final ValueAnimator rotateIconAnimator = ValueAnimator.ofFloat(
+                                    holder.getView(R.id.iv).getRotation(), 45f);
+                            rotateIconAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+                            rotateIconAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                @Override
+                                public void onAnimationUpdate(ValueAnimator animation) {
+                                    holder.getView(R.id.iv).setRotation((float) animation.getAnimatedValue());
+                                }
+                            });
+                            rotateIconAnimator.start();
                         } else {
                             expand(pos);
+                            final ValueAnimator rotateIconAnimator = ValueAnimator.ofFloat(
+                                    holder.getView(R.id.iv).getRotation(), 0f);
+                            rotateIconAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+                            rotateIconAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                @Override
+                                public void onAnimationUpdate(ValueAnimator animation) {
+                                    holder.getView(R.id.iv).setRotation((float) animation.getAnimatedValue());
+                                }
+                            });
+                            rotateIconAnimator.start();
                         }
                     }
                 });
