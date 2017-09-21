@@ -49,6 +49,9 @@ dependencies {
 
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //Dialog
+    compile 'com.github.javiersantos:MaterialStyledDialogs:2.1'
+    compile 'com.labo.kaji:swipeawaydialog:0.1.1'
 
     //Dagger2
     apt 'com.google.dagger:dagger-compiler:2.0.2'

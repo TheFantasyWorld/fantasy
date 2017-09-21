@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/user_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape_round_user_icon"
+        android:src="@mipmap/ic_launcher"
+        android:padding="3dp"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:text="　　清风徐来"/>
+
+    <com.androidworld.app.ui.activity.path.QQPoint.QQBezierView
+        android:id="@+id/qq_point"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/red_bg"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:text="7"
+        android:textColor="@color/white"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
+
+</LinearLayout>

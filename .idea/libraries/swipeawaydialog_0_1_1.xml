@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="swipeawaydialog-0.1.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/e42d92e484d0f0aa8ad160da627cc5cf305ab9a2/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/e42d92e484d0f0aa8ad160da627cc5cf305ab9a2/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.labo.kaji/swipeawaydialog/0.1.1/3da8a5489317b6486db0b66b278a9623c356d9b6/swipeawaydialog-0.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

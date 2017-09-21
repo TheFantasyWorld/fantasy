@@ -40,6 +40,13 @@
         <activity android:name=".ui.activity.popupwindow.BottomPopupWindowActivity" />
         <activity android:name=".ui.activity.popupwindow.LeftPopupWindowActivity" />
         <activity android:name=".ui.activity.popupwindow.RightPopupWindowActivity" />
+        <activity android:name=".ui.activity.path.TwoBezierActivity" />
+        <activity android:name=".ui.activity.path.ThreeBezierActivity" />
+        <activity android:name=".ui.activity.dialog.DialogWithHeaderActivity" />
+        <activity android:name=".ui.activity.dialog.SwipeAwayDialogActivity" />
+        <activity android:name=".ui.activity.dialog.ProgressDialogActivity" />
+        <activity android:name=".ui.activity.dialog.TimePikerDialogActivity" />
+        <activity android:name=".ui.activity.dialog.ListViewDialogActivity" />
     </application>
 
 </manifest>

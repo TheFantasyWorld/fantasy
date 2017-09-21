@@ -10,7 +10,15 @@ import com.androidworld.app.R;
 import com.androidworld.app.bean.WidgetItem;
 import com.androidworld.app.bean.WidgetType;
 import com.androidworld.app.ui.activity.base.BaseSwipeBackActivity;
+import com.androidworld.app.ui.activity.dialog.DialogWithHeaderActivity;
+import com.androidworld.app.ui.activity.dialog.ListViewDialogActivity;
+import com.androidworld.app.ui.activity.dialog.ProgressDialogActivity;
+import com.androidworld.app.ui.activity.dialog.SwipeAwayDialogActivity;
+import com.androidworld.app.ui.activity.dialog.TimePikerDialogActivity;
+import com.androidworld.app.ui.activity.path.QQPointActivity;
 import com.androidworld.app.ui.activity.path.RectanglePathActivity;
+import com.androidworld.app.ui.activity.path.ThreeBezierActivity;
+import com.androidworld.app.ui.activity.path.TwoBezierActivity;
 import com.androidworld.app.ui.activity.piechart.PieChartActivity;
 import com.androidworld.app.ui.activity.popupwindow.BottomPopupWindowActivity;
 import com.androidworld.app.ui.activity.popupwindow.LeftPopupWindowActivity;
@@ -64,8 +72,11 @@ public class WidgetsActivity extends BaseSwipeBackActivity {
         mDataList.add(animates);
 
         WidgetType dialogs = new WidgetType("Dialogs");
-        dialogs.addSubItem(new WidgetItem("a", SettingsActivity.class));
-        dialogs.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        dialogs.addSubItem(new WidgetItem("DialogWithHeader", DialogWithHeaderActivity.class));
+        dialogs.addSubItem(new WidgetItem("滑动取消对话框", SwipeAwayDialogActivity.class));
+        dialogs.addSubItem(new WidgetItem("时间选择对话框", TimePikerDialogActivity.class));
+        dialogs.addSubItem(new WidgetItem("ListViewDialog", ListViewDialogActivity.class));
+        dialogs.addSubItem(new WidgetItem("Progress加载框", ProgressDialogActivity.class));
         mDataList.add(dialogs);
 
         WidgetType popupWindows = new WidgetType("PopupWindows");
@@ -77,8 +88,9 @@ public class WidgetsActivity extends BaseSwipeBackActivity {
 
         WidgetType paths = new WidgetType("Path绘制");
         paths.addSubItem(new WidgetItem("PathMeasure", RectanglePathActivity.class));
-        paths.addSubItem(new WidgetItem("二阶贝塞尔曲线", SettingsActivity.class));
-        paths.addSubItem(new WidgetItem("三阶贝塞尔曲线", SettingsActivity.class));
+        paths.addSubItem(new WidgetItem("二阶贝塞尔曲线", TwoBezierActivity.class));
+        paths.addSubItem(new WidgetItem("三阶贝塞尔曲线", ThreeBezierActivity.class));
+        paths.addSubItem(new WidgetItem("贝塞尔实现QQ小红点", QQPointActivity.class));
         mDataList.add(paths);
 
         WidgetType textViews = new WidgetType("TextView");
