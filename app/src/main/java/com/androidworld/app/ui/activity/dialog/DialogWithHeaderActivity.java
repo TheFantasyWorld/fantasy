@@ -16,7 +16,10 @@ public class DialogWithHeaderActivity extends BaseSwipeBackActivity {
         new MaterialStyledDialog.Builder(this)
                 .setTitle("You are Lucky!")
                 .setDescription("What can we improve? Your feedback is always welcome.")
-                .setIcon(R.mipmap.ic_launcher)
+                .setIcon(R.mipmap.play)
+                .setHeaderDrawable(R.mipmap.header)
+                .setPositiveText("Ok")
+                .setNegativeText("Cancel")
                 .show();
     }
 

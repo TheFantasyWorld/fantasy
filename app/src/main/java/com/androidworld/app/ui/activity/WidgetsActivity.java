@@ -10,6 +10,7 @@ import com.androidworld.app.R;
 import com.androidworld.app.bean.WidgetItem;
 import com.androidworld.app.bean.WidgetType;
 import com.androidworld.app.ui.activity.base.BaseSwipeBackActivity;
+import com.androidworld.app.ui.activity.button.ShareButtonActivity;
 import com.androidworld.app.ui.activity.dialog.DialogWithHeaderActivity;
 import com.androidworld.app.ui.activity.dialog.ListViewDialogActivity;
 import com.androidworld.app.ui.activity.dialog.ProgressDialogActivity;
@@ -100,7 +101,7 @@ public class WidgetsActivity extends BaseSwipeBackActivity {
         mDataList.add(textViews);
 
         WidgetType buttons = new WidgetType("Button");
-        buttons.addSubItem(new WidgetItem("a", RectanglePathActivity.class));
+        buttons.addSubItem(new WidgetItem("ShareButton", ShareButtonActivity.class));
         buttons.addSubItem(new WidgetItem("b", SettingsActivity.class));
         buttons.addSubItem(new WidgetItem("c", SettingsActivity.class));
         mDataList.add(buttons);
