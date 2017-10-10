@@ -19,7 +19,7 @@ import com.nineoldandroids.animation.ValueAnimator;
 
 public class ShareButtonView extends View {
     private static final String TAG = "ShareButtonView";
-    private static final int DEFAULT_BACKGROUND_COLOR = 0xFF008CFF;
+    private static final int DEFAULT_BACKGROUND_COLOR = 0xFFFF5722;
 
     private final int PADDING = dip2px(24);
     private final int ITEM_MARGIN = dip2px(30);
@@ -150,7 +150,7 @@ public class ShareButtonView extends View {
 
         mTitleTextPaint = new Paint();
         mTitleTextPaint.setColor(Color.WHITE);
-        mTitleTextPaint.setTextSize(30);
+        mTitleTextPaint.setTextSize(dip2px(16));
 
         mButtonRectPaint = new Paint();
         mButtonRectPaint.setColor(Color.WHITE);
@@ -158,23 +158,23 @@ public class ShareButtonView extends View {
         mButtonRectPaint.setStrokeWidth(3);
 
         mButtonTextPaint = new Paint();
-        mButtonTextPaint.setTextSize(30);
+        mButtonTextPaint.setTextSize(dip2px(16));
         mButtonTextPaint.setColor(Color.WHITE);
 
         mContentItemOnePaint = new Paint();
         mContentItemOnePaint.setColor(Color.WHITE);
-        mContentItemOnePaint.setTextSize(25);
+        mContentItemOnePaint.setTextSize(dip2px(14));
 
         mContentItemTwoPaint = new Paint();
         mContentItemTwoPaint.setColor(Color.WHITE);
-        mContentItemTwoPaint.setTextSize(25);
+        mContentItemTwoPaint.setTextSize(dip2px(14));
 
         mContentItemThreePaint = new Paint();
         mContentItemThreePaint.setColor(Color.WHITE);
-        mContentItemThreePaint.setTextSize(25);
+        mContentItemThreePaint.setTextSize(dip2px(14));
 
         mRevealPaint = new Paint();
-        mRevealPaint.setColor(0xFF007AF3);
+        mRevealPaint.setColor(0xFFE64A19);
         mRevealPaint.setAntiAlias(true);
     }
 

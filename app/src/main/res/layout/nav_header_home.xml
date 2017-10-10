@@ -10,21 +10,21 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <ImageView
-        android:id="@+id/user_avatar"
-        android:layout_width="85dip"
-        android:layout_height="85dip"
+        android:id="@+id/iv_user_avatar"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginLeft="8dip"
+        android:layout_marginStart="8dp"
         android:background="@drawable/shape_round_user_icon"
-        android:padding="3dip"
+        android:padding="3dp"
         android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/tv_user_name"
-        android:layout_width="135dp"
+        android:layout_width="133dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/user_avatar"
-        android:layout_marginLeft="-16dp"
+        android:layout_below="@id/iv_user_avatar"
+        android:layout_marginStart="-16dp"
         android:gravity="center"
         android:text="清风丶徐来"
         android:textColor="@color/window_background" />

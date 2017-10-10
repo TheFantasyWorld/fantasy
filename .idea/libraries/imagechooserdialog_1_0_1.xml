@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="imagechooserdialog-1.0.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/8f8d2bb0b964441384bf3941b17b5853b9495f1e/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/8f8d2bb0b964441384bf3941b17b5853b9495f1e/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.fattycat.kun/imagechooserdialog/1.0.1/35f791380525b3a9e10d21f4451d2d788e6cdba0/imagechooserdialog-1.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

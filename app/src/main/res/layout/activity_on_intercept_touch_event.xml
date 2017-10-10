@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text="Activity（Window）"
+        android:textColor="@color/text_color_primary"
+        android:textSize="@dimen/sp_16"/>
+
+    <com.androidworld.app.ui.activity.event.CustomCardView
+        android:id="@+id/cv_parent"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_margin="50dp"
+        android:backgroundTint="@color/green_pure"
+        android:elevation="3dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:text="父（ViewGroup）"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"/>
+
+        <com.androidworld.app.ui.activity.event.CustomButton
+            android:id="@+id/btn_child"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="45dp"
+            android:background="@color/colorPrimary"
+            android:elevation="6dp"
+            android:text="子（View）"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"/>
+
+    </com.androidworld.app.ui.activity.event.CustomCardView>
+
+    <LinearLayout
+        android:id="@+id/ll_activity_event"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Activity->dispatchTouchEvent()"/>
+
+        <Switch
+            android:id="@+id/switch_activity_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_parent_event"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/ll_activity_event"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ViewGroup->dispatchTouchEvent()"/>
+
+        <Switch
+            android:id="@+id/switch_parent_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"/>
+
+    </LinearLayout>
+</RelativeLayout>

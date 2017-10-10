@@ -23,31 +23,42 @@
         <activity
             android:name=".ui.activity.WelcomeActivity"
             android:theme="@style/FullscreenTheme" >
-        </activity>
-        <activity android:name=".ui.activity.HomeActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.HomeActivity" >
+
+        </activity>
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.SettingsActivity" />
         <activity android:name=".ui.activity.WidgetsActivity" />
         <activity android:name=".ui.activity.piechart.PieChartActivity" />
+        <activity android:name=".ui.activity.event.DispatchTouchEventActivity" />
+        <activity android:name=".ui.activity.event.OnInterceptTouchEventActivity" />
+        <activity android:name=".ui.activity.event.OnTouchEventActivity" />
         <activity android:name=".ui.activity.path.RectanglePathActivity" />
+        <activity android:name=".ui.activity.path.TwoBezierActivity" />
+        <activity android:name=".ui.activity.path.ThreeBezierActivity" />
         <activity android:name=".ui.activity.popupwindow.TopPopupWindowActivity" />
         <activity android:name=".ui.activity.popupwindow.BottomPopupWindowActivity" />
         <activity android:name=".ui.activity.popupwindow.LeftPopupWindowActivity" />
         <activity android:name=".ui.activity.popupwindow.RightPopupWindowActivity" />
-        <activity android:name=".ui.activity.path.TwoBezierActivity" />
-        <activity android:name=".ui.activity.path.ThreeBezierActivity" />
         <activity android:name=".ui.activity.dialog.DialogWithHeaderActivity" />
         <activity android:name=".ui.activity.dialog.SwipeAwayDialogActivity" />
         <activity android:name=".ui.activity.dialog.ProgressDialogActivity" />
         <activity android:name=".ui.activity.dialog.TimePikerDialogActivity" />
         <activity android:name=".ui.activity.dialog.ListViewDialogActivity" />
         <activity android:name=".ui.activity.button.ShareButtonActivity" />
+        <activity android:name=".ui.activity.button.CartButtonActivity" />
+        <activity android:name=".ui.activity.thread.ThreadActivity" />
+        <activity android:name=".ui.activity.thread.HandlerThreadActivity" />
+        <activity android:name=".ui.activity.thread.ThreadPoolActivity" />
+        <activity android:name=".ui.activity.thread.IntentServiceActivity" />
+        <!--Service-->
+        <service android:name=".ui.activity.thread.intentService.MyIntentService" />
     </application>
 
 </manifest>

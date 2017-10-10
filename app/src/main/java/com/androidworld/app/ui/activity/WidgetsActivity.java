@@ -10,12 +10,16 @@ import com.androidworld.app.R;
 import com.androidworld.app.bean.WidgetItem;
 import com.androidworld.app.bean.WidgetType;
 import com.androidworld.app.ui.activity.base.BaseSwipeBackActivity;
+import com.androidworld.app.ui.activity.button.CartButtonActivity;
 import com.androidworld.app.ui.activity.button.ShareButtonActivity;
 import com.androidworld.app.ui.activity.dialog.DialogWithHeaderActivity;
 import com.androidworld.app.ui.activity.dialog.ListViewDialogActivity;
 import com.androidworld.app.ui.activity.dialog.ProgressDialogActivity;
 import com.androidworld.app.ui.activity.dialog.SwipeAwayDialogActivity;
 import com.androidworld.app.ui.activity.dialog.TimePikerDialogActivity;
+import com.androidworld.app.ui.activity.event.DispatchTouchEventActivity;
+import com.androidworld.app.ui.activity.event.OnInterceptTouchEventActivity;
+import com.androidworld.app.ui.activity.event.OnTouchEventActivity;
 import com.androidworld.app.ui.activity.path.QQPointActivity;
 import com.androidworld.app.ui.activity.path.RectanglePathActivity;
 import com.androidworld.app.ui.activity.path.ThreeBezierActivity;
@@ -58,8 +62,10 @@ public class WidgetsActivity extends BaseSwipeBackActivity {
 
     private void createData() {
         WidgetType dispatchTouchEvent = new WidgetType("事件分发机制");
-        dispatchTouchEvent.addSubItem(new WidgetItem("o", PieChartActivity.class));
-        dispatchTouchEvent.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        dispatchTouchEvent.addSubItem(new WidgetItem("dispatchTouchEvent详解", DispatchTouchEventActivity.class));
+        dispatchTouchEvent.addSubItem(new WidgetItem("onInterceptTouchEvent详解", OnInterceptTouchEventActivity.class));
+        dispatchTouchEvent.addSubItem(new WidgetItem("onTouchEvent详解", OnTouchEventActivity.class));
+        dispatchTouchEvent.addSubItem(new WidgetItem("解决ScrollView与ListView事件冲突", SettingsActivity.class));
         mDataList.add(dispatchTouchEvent);
 
         WidgetType customViews = new WidgetType("自定义Views");
@@ -68,7 +74,7 @@ public class WidgetsActivity extends BaseSwipeBackActivity {
         mDataList.add(customViews);
 
         WidgetType animates = new WidgetType("View动画");
-        animates.addSubItem(new WidgetItem("值动画", PieChartActivity.class));
+        animates.addSubItem(new WidgetItem("值动画", ShareButtonActivity.class));
         animates.addSubItem(new WidgetItem("补间动画", SettingsActivity.class));
         mDataList.add(animates);
 
@@ -94,17 +100,11 @@ public class WidgetsActivity extends BaseSwipeBackActivity {
         paths.addSubItem(new WidgetItem("贝塞尔实现QQ小红点", QQPointActivity.class));
         mDataList.add(paths);
 
-        WidgetType textViews = new WidgetType("TextView");
-        textViews.addSubItem(new WidgetItem("a", RectanglePathActivity.class));
-        textViews.addSubItem(new WidgetItem("b", SettingsActivity.class));
-        textViews.addSubItem(new WidgetItem("c", SettingsActivity.class));
-        mDataList.add(textViews);
-
-        WidgetType buttons = new WidgetType("Button");
-        buttons.addSubItem(new WidgetItem("ShareButton", ShareButtonActivity.class));
-        buttons.addSubItem(new WidgetItem("b", SettingsActivity.class));
-        buttons.addSubItem(new WidgetItem("c", SettingsActivity.class));
-        mDataList.add(buttons);
+        WidgetType viewPagers = new WidgetType("ViewPagers");
+        viewPagers.addSubItem(new WidgetItem("a", RectanglePathActivity.class));
+        viewPagers.addSubItem(new WidgetItem("b", SettingsActivity.class));
+        viewPagers.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        mDataList.add(viewPagers);
 
         WidgetType listViews = new WidgetType("ListView");
         listViews.addSubItem(new WidgetItem("a", RectanglePathActivity.class));
@@ -117,6 +117,18 @@ public class WidgetsActivity extends BaseSwipeBackActivity {
         recyclerViews.addSubItem(new WidgetItem("b", SettingsActivity.class));
         recyclerViews.addSubItem(new WidgetItem("c", SettingsActivity.class));
         mDataList.add(recyclerViews);
+
+        WidgetType textViews = new WidgetType("TextView");
+        textViews.addSubItem(new WidgetItem("a", RectanglePathActivity.class));
+        textViews.addSubItem(new WidgetItem("b", SettingsActivity.class));
+        textViews.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        mDataList.add(textViews);
+
+        WidgetType buttons = new WidgetType("Button");
+        buttons.addSubItem(new WidgetItem("ShareButton", ShareButtonActivity.class));
+        buttons.addSubItem(new WidgetItem("购物车添加按钮", CartButtonActivity.class));
+        buttons.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        mDataList.add(buttons);
     }
 
     @Override

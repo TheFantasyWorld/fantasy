@@ -2,6 +2,7 @@ package com.androidworld.app.util;
 
 import android.content.Context;
 import android.util.TypedValue;
+import android.view.View;
 
 /**
  * 描述：
@@ -44,6 +45,17 @@ public class DensityUtils {
      */
     public static float px2sp(Context context, float pxVal) {
         return (pxVal / context.getResources().getDisplayMetrics().scaledDensity);
+    }
+
+    /**
+     * 测量View的宽高
+     *
+     * @param view View
+     */
+    public static void measureWidthAndHeight(View view) {
+        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        view.measure(widthMeasureSpec, heightMeasureSpec);
     }
 
 }
