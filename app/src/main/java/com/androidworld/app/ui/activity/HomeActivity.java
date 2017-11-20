@@ -12,23 +12,34 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.androidworld.app.R;
+import com.androidworld.app.bean.Blog;
 import com.androidworld.app.ui.activity.base.BaseActivity;
 import com.androidworld.app.ui.activity.thread.ThreadActivity;
+import com.androidworld.app.util.ExitAppUtil;
 import com.androidworld.app.util.ToastUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -43,7 +54,6 @@ import static com.androidworld.app.R.id.nav_view;
  * @author LQC
  *         当前时间：2016/6/4 20:28
  */
-@SuppressWarnings("all")
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -55,6 +65,15 @@ public class HomeActivity extends BaseActivity
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
+
+    @Bind(R.id.rv_blog)
+    RecyclerView rvBlog;
+
+    @Bind(R.id.vp_banner)
+    ViewPager vpBanner;
+
+    @Bind(R.id.et_search)
+    EditText etSearch;
 
     ImageView ivUserAvatar;
 
@@ -74,11 +93,61 @@ public class HomeActivity extends BaseActivity
      */
     private static final int REQUEST_CROP_IMAGE = 0x01;
     private ImageChooserDialog mImageChooserDialog;
+    private ExitAppUtil mExitAppUtil = new ExitAppUtil(this);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setSupportActionBar(mToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
         initDrawerLayout();
+        initData();
+    }
+
+    private void initData() {
+        final ArrayList<View> viewList = new ArrayList<>();
+        viewList.add(View.inflate(this, R.layout.pager_banner, null));
+        viewList.add(View.inflate(this, R.layout.pager_banner, null));
+        viewList.add(View.inflate(this, R.layout.pager_banner, null));
+        vpBanner.setAdapter(new PagerAdapter() {
+            @Override
+            public int getCount() {//必须实现
+                return viewList.size();
+            }
+
+            @Override
+            public boolean isViewFromObject(View view, Object object) {//必须实现
+                return view == object;
+            }
+
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {//必须实现，实例化
+                container.addView(viewList.get(position));
+                return viewList.get(position);
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {//必须实现，销毁
+                container.removeView(viewList.get(position));
+            }
+        });
+
+        List<Blog> blogList = new ArrayList<>();
+        blogList.add(new Blog("", "123", "", ""));
+        blogList.add(new Blog("", "456", "", ""));
+        blogList.add(new Blog("", "789", "", ""));
+        blogList.add(new Blog("", "987", "", ""));
+        blogList.add(new Blog("", "654", "", ""));
+        blogList.add(new Blog("", "321", "", ""));
+        rvBlog.setLayoutManager(new LinearLayoutManager(mContext));
+        rvBlog.setAdapter(new BaseQuickAdapter<Blog, BaseViewHolder>(R.layout.item_blog, blogList) {
+            @Override
+            protected void convert(BaseViewHolder helper, Blog item) {
+                helper.setText(R.id.tv_title, item.title);
+            }
+        });
     }
 
     /**
@@ -87,7 +156,6 @@ public class HomeActivity extends BaseActivity
     private void initDrawerLayout() {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawer.setDrawerListener(toggle);
         toggle.syncState();
         if (mNavigationView != null) {
             mNavigationView.setNavigationItemSelectedListener(this);
@@ -100,15 +168,13 @@ public class HomeActivity extends BaseActivity
     }
 
     @Override
-    protected void initToolbar(Toolbar toolbar, View toolbarShadow) {
-        toolbar.setTitle("Android");
-        toolbarShadow.setVisibility(View.GONE);
-        super.initToolbar(toolbar, toolbarShadow);
+    protected int getContentViewLayoutId() {
+        return R.layout.activity_home;
     }
 
     @Override
     protected int getSubContentViewLayoutId() {
-        return R.layout.activity_home;
+        return NO_BASE_CONTENT_VIEW;
     }
 
     @Override
@@ -116,7 +182,7 @@ public class HomeActivity extends BaseActivity
         if (mDrawer.isDrawerOpen(GravityCompat.START)) {
             mDrawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            mExitAppUtil.exit();
         }
     }
 
@@ -129,10 +195,6 @@ public class HomeActivity extends BaseActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.exit) {
-            finish();
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 

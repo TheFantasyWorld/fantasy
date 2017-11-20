@@ -20,6 +20,7 @@ import com.androidworld.app.ui.activity.dialog.TimePikerDialogActivity;
 import com.androidworld.app.ui.activity.event.DispatchTouchEventActivity;
 import com.androidworld.app.ui.activity.event.OnInterceptTouchEventActivity;
 import com.androidworld.app.ui.activity.event.OnTouchEventActivity;
+import com.androidworld.app.ui.activity.event.SlidingConflictActivity;
 import com.androidworld.app.ui.activity.path.QQPointActivity;
 import com.androidworld.app.ui.activity.path.RectanglePathActivity;
 import com.androidworld.app.ui.activity.path.ThreeBezierActivity;
@@ -65,12 +66,12 @@ public class WidgetsActivity extends BaseSwipeBackActivity {
         dispatchTouchEvent.addSubItem(new WidgetItem("dispatchTouchEvent详解", DispatchTouchEventActivity.class));
         dispatchTouchEvent.addSubItem(new WidgetItem("onInterceptTouchEvent详解", OnInterceptTouchEventActivity.class));
         dispatchTouchEvent.addSubItem(new WidgetItem("onTouchEvent详解", OnTouchEventActivity.class));
-        dispatchTouchEvent.addSubItem(new WidgetItem("解决ScrollView与ListView事件冲突", SettingsActivity.class));
+        dispatchTouchEvent.addSubItem(new WidgetItem("解决ScrollView与ListView事件冲突", SlidingConflictActivity.class));
         mDataList.add(dispatchTouchEvent);
 
         WidgetType customViews = new WidgetType("自定义Views");
         customViews.addSubItem(new WidgetItem("饼图", PieChartActivity.class));
-        customViews.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        customViews.addSubItem(new WidgetItem("加载小球", CartButtonActivity.class));
         mDataList.add(customViews);
 
         WidgetType animates = new WidgetType("View动画");
@@ -107,27 +108,22 @@ public class WidgetsActivity extends BaseSwipeBackActivity {
         mDataList.add(viewPagers);
 
         WidgetType listViews = new WidgetType("ListView");
-        listViews.addSubItem(new WidgetItem("a", RectanglePathActivity.class));
-        listViews.addSubItem(new WidgetItem("b", SettingsActivity.class));
-        listViews.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        listViews.addSubItem(new WidgetItem("联系人列表", RectanglePathActivity.class));
         mDataList.add(listViews);
 
         WidgetType recyclerViews = new WidgetType("RecyclerView");
         recyclerViews.addSubItem(new WidgetItem("瀑布流＋照片墙", RectanglePathActivity.class));
-        recyclerViews.addSubItem(new WidgetItem("b", SettingsActivity.class));
-        recyclerViews.addSubItem(new WidgetItem("c", SettingsActivity.class));
         mDataList.add(recyclerViews);
 
-        WidgetType textViews = new WidgetType("TextView");
-        textViews.addSubItem(new WidgetItem("a", RectanglePathActivity.class));
-        textViews.addSubItem(new WidgetItem("b", SettingsActivity.class));
-        textViews.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        WidgetType textViews = new WidgetType("EditText");
+        textViews.addSubItem(new WidgetItem("添加图片", RectanglePathActivity.class));
+        textViews.addSubItem(new WidgetItem("动画搜索框", CartButtonActivity.class));
         mDataList.add(textViews);
 
         WidgetType buttons = new WidgetType("Button");
         buttons.addSubItem(new WidgetItem("ShareButton", ShareButtonActivity.class));
         buttons.addSubItem(new WidgetItem("购物车添加按钮", CartButtonActivity.class));
-        buttons.addSubItem(new WidgetItem("c", SettingsActivity.class));
+        buttons.addSubItem(new WidgetItem("空心与实心按钮", CartButtonActivity.class));
         mDataList.add(buttons);
     }
 

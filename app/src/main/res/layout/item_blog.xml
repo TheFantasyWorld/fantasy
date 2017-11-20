@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="@dimen/activity_horizontal_margin">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_picture"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="0dp">
+
+        <ImageView
+            android:id="@+id/iv_course"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/city"
+            android:contentDescription="@null"/>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_toEndOf="@id/cv_picture"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/text_color_primary"
+        android:textSize="@dimen/sp_16"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@id/tv_title"
+        android:layout_toEndOf="@id/cv_picture"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_start_date"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/text_second_color_primary"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+</RelativeLayout>

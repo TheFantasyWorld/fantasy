@@ -6,10 +6,5 @@
         android:icon="@drawable/fab_add"
         android:title="@string/more"
         app:showAsAction="always">
-        <menu>
-            <item
-                android:id="@+id/exit"
-                android:title="@string/exit" />
-        </menu>
     </item>
 </menu>

@@ -18,6 +18,7 @@ import com.androidworld.app.rxbus.Event;
 import com.androidworld.app.rxbus.RxEvent;
 import com.androidworld.app.rxbus.RxEventBus;
 import com.androidworld.app.util.ThemeUtil;
+import com.androidworld.app.util.ToastUtil;
 
 import javax.inject.Inject;
 
@@ -181,6 +182,17 @@ public abstract class BaseActivity extends AppCompatActivity implements Event {
      */
     protected void showActivityExitAnim() {
         overridePendingTransition(R.anim.activity_exit_anim, R.anim.activity_left_right_anim);
+    }
+
+    /**
+     * 显示吐司
+     */
+    public void showToast(String msg, int... duration) {
+        if (duration != null) { // 不传duration，默认显示短时间的Toast
+            ToastUtil.showMessageLong(mContext, msg);
+        } else {
+            ToastUtil.showMessage(mContext, msg);
+        }
     }
 
     /**

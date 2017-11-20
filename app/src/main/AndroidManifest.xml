@@ -39,6 +39,7 @@
         <activity android:name=".ui.activity.event.DispatchTouchEventActivity" />
         <activity android:name=".ui.activity.event.OnInterceptTouchEventActivity" />
         <activity android:name=".ui.activity.event.OnTouchEventActivity" />
+        <activity android:name=".ui.activity.event.SlidingConflictActivity" />
         <activity android:name=".ui.activity.path.RectanglePathActivity" />
         <activity android:name=".ui.activity.path.TwoBezierActivity" />
         <activity android:name=".ui.activity.path.ThreeBezierActivity" />
