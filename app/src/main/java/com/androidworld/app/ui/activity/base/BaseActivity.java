@@ -13,7 +13,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.androidworld.app.R;
-import com.androidworld.app.config.AndroidWorldApplication;
+import com.androidworld.app.config.CustomApp;
 import com.androidworld.app.rxbus.Event;
 import com.androidworld.app.rxbus.RxEvent;
 import com.androidworld.app.rxbus.RxEventBus;
@@ -157,8 +157,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Event {
         return true;
     }
 
-    protected AndroidWorldApplication getAndroidWorldApplication() {
-        return (AndroidWorldApplication) getApplication();
+    protected CustomApp getAndroidWorldApplication() {
+        return (CustomApp) getApplication();
     }
 
     /**

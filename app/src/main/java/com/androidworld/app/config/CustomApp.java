@@ -25,7 +25,7 @@ import okhttp3.OkHttpClient;
  * @author LQC
  *         当前时间：2016/6/4 20:05
  */
-public class AndroidWorldApplication extends Application implements Constants, AppSettings {
+public class CustomApp extends Application implements Constants, AppSettings {
 
     @Inject
     OkHttpClient mOkHttpClient;

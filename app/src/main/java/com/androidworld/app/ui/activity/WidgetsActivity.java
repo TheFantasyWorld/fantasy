@@ -17,6 +17,7 @@ import com.androidworld.app.ui.activity.dialog.ListViewDialogActivity;
 import com.androidworld.app.ui.activity.dialog.ProgressDialogActivity;
 import com.androidworld.app.ui.activity.dialog.SwipeAwayDialogActivity;
 import com.androidworld.app.ui.activity.dialog.TimePikerDialogActivity;
+import com.androidworld.app.ui.activity.edittext.ContactEditTextActivity;
 import com.androidworld.app.ui.activity.event.DispatchTouchEventActivity;
 import com.androidworld.app.ui.activity.event.OnInterceptTouchEventActivity;
 import com.androidworld.app.ui.activity.event.OnTouchEventActivity;
@@ -116,7 +117,7 @@ public class WidgetsActivity extends BaseSwipeBackActivity {
         mDataList.add(recyclerViews);
 
         WidgetType textViews = new WidgetType("EditText");
-        textViews.addSubItem(new WidgetItem("添加图片", RectanglePathActivity.class));
+        textViews.addSubItem(new WidgetItem("添加图片", ContactEditTextActivity.class));
         textViews.addSubItem(new WidgetItem("动画搜索框", CartButtonActivity.class));
         mDataList.add(textViews);
 
